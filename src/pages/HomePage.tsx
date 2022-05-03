@@ -1,8 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import { CategoryButton } from '../components/CategoryButton';
-import { MovieCard } from '../components/MovieCard';
-import popularImg from '../assets/images/popcorn.png'
-import nowPlayingImg from '../assets/images/seats.jpeg'
+import React, { useEffect, useState } from "react";
+import { CategoryButton } from "../components/CategoryButton";
+import { MovieCard } from "../components/MovieCard";
+import popularImg from "../assets/images/popcorn.png";
+import nowPlayingImg from "../assets/images/seats.jpeg";
+import axios from "axios";
+import { replaceEqualDeep } from "react-query/types/core/utils";
+import { useHistory } from "react-router-dom";
 
 const API_KEY = "c275787762fb2904adb52c4ad6412662";
 
@@ -28,27 +31,37 @@ export type Movie = {
 
 export const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
-  const [movies, setMovies] = useState<Movie[]>([]);
+  const [movies, setMovies] = useState<any[]>([]);
   const [categoryIndex, setCategoryIndex] = useState(0);
+  const { replace } = useHistory();
 
   const setCategory = (index:number) => {
     setCategoryIndex(index);
-  }
+  };
 
-  const getData = async (categoryIndex:number) => {
-    const url = `https://api.themoviedb.org/3/movie${CATEGORY_LIST[categoryIndex].url}?api_key=${API_KEY}&language=ko-KR&page=1`;
-    const response = await fetch(url);
-    if (response.status === 200) {
-      const data = await response.json();
-
-      setMovies(data.results);
-    } else {
-      throw new Error("데이터를 받아오지 못했습니다.");
-    }
+  const getData = async (categoryIndex: number) => {
+    axios
+      .get("http://localhost:1337/api/movies?populate=%2A", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((response) => {
+        // Handle success.
+        console.log("Data: ", response.data);
+        setMovies(response.data.data);
+      })
+      .catch((error) => {
+        // Handle error.
+        console.log("An error occurred:", error.response);
+      });
     setIsLoading(false);
   }
 
   useEffect(() => {
+    if (!localStorage.getItem("token")) {
+      replace("/login");
+    }
     getData(categoryIndex);
   }, [categoryIndex]);
 
