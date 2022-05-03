@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TextField } from "../components/TextField";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
@@ -21,12 +21,20 @@ export const LoginPage = () => {
       .then((response) => {
         console.log("Login!");
         console.log("token", response.data.jwt);
+        localStorage.setItem("token", response.data.jwt);
+        replace("/");
       })
       .catch((error) => {
         console.log("error:", error.response.data.error.message);
         alert(error.response.data.error.message);
       });
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("token")) {
+      replace("/");
+    }
+  }, []);
 
   return (
     <div className="m-4">
