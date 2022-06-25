@@ -11,31 +11,31 @@ export const ChatRoom = () => {
   const [Message, setMessage] = useState("");
   const post = () => {};
 
-  const handleChange = (e: any) => {
-    setMessage(e.target.value);
-  };
+  // const handleChange = (e: any) => {
+  //   setMessage(e.target.value);
+  // };
 
-  const handleClick = (e: any) => {
-    sendMessage(Message);
-  };
+  // const handleClick = (e: any) => {
+  //   sendMessage(Message);
+  // };
 
-  const sendMessage = (Message: any) => {
-    if (Message) {
-      socket.emit(
-        "sendMessage",
-        { userId: joinData.userData.id, Message },
-        (error: any) => {
-          if (error) {
-            alert(error);
-            history.push("/join");
-          }
-        }
-      );
-      setMessage("");
-    } else {
-      alert("Message can't be empty");
-    }
-  };
+  // const sendMessage = (Message: any) => {
+  //   if (Message) {
+  //     socket.emit(
+  //       "sendMessage",
+  //       { userId: joinData.userData.id, Message },
+  //       (error: any) => {
+  //         if (error) {
+  //           alert(error);
+  //           history.push("/join");
+  //         }
+  //       }
+  //     );
+  //     setMessage("");
+  //   } else {
+  //     alert("Message can't be empty");
+  //   }
+  // };
 
   return (
     <div>
@@ -68,11 +68,11 @@ export const ChatRoom = () => {
             placeholder="메시지를 입력해 주세요."
             type="text"
             value={Message}
-            onChange={handleChange}
+            // onChange={handleChange}
           />
           <button
             className="flex items-center justify-center bg-emerald-800 rounded-md text-white px-4 py-1 flex-shrink-0"
-            onClick={handleClick}
+            // onClick={handleClick}
           >
             <span>전송</span>
           </button>
