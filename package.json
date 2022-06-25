@@ -30,6 +30,7 @@
     "react-ridge-state": "4.2.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "5.0.0",
+    "socket.io": "^4.5.1",
     "typescript": "^4.3.4",
     "web-vitals": "^2.1.3"
   },

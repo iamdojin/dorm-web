@@ -68,7 +68,7 @@ export const SignupPage = () => {
           className="w-4/5 h-16 mx-auto rounded-lg"
           labelClassname="font-medium text-xl ml-16 text-white "
           label="Password"
-          placeholder="비밀번호를 입력해 주세요."
+          placeholder="비밀번호를 입력해 주세요. (6자 이상)"
           value={password}
           name="pswd1"
           onChange={(event) => {

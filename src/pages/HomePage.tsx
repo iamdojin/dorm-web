@@ -33,7 +33,8 @@ export const HomePage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [movies, setMovies] = useState<any[]>([]);
   const [categoryIndex, setCategoryIndex] = useState(0);
-  const { replace } = useHistory();
+  const { push, replace } = useHistory();
+  const history = useHistory();
 
   const setCategory = (index: number) => {
     setCategoryIndex(index);
@@ -66,85 +67,112 @@ export const HomePage = () => {
   }, [categoryIndex]);
 
   return (
-    <div className="m-4 space-y-10">
-      <div className="className=">
-        <div className="space-y-4">
-          <div className="text-2xl font-bold">New</div>
-          <img
-            src="https://source.unsplash.com/random"
-            alt=""
-            className="w-full h-72 object-cover rounded-2xl"
-          />
-        </div>
+    <div className="m-4">
+      <div
+        className="p-5 border border-emerald-800 rounded mb-10"
+        onClick={() => history.push("/notice")}
+      >
+        <div className="text-2xl font-medium">공지사항</div>
+        <p className="mt-3 text-gray-700 text-sm">공지사항입니다.</p>
+      </div>
+
+      <div className="flex justify-end space-x-4 mr-5 mb-5">
+        <button onClick={() => history.push("/post")}>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#333D4B"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M12 5V19" />
+            <path d="M5 12H19" />
+          </svg>{" "}
+        </button>
+        <button onClick={() => history.push("/join")}>
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="#333D4B"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path d="M4 4H20C21.1 4 22 4.9 22 6V18C22 19.1 21.1 20 20 20H4C2.9 20 2 19.1 2 18V6C2 4.9 2.9 4 4 4Z" />
+            <path d="M22 6L12 13L2 6" />
+          </svg>
+        </button>
       </div>
 
       <div>
-        <div className="space-y-4">
-          <div className="text-2xl font-bold">Category</div>
-
-          <div className="flex space-x-3">
-            {CATEGORY_LIST.map((data) => (
-              <CategoryButton
-                key={data.id}
-                category={data}
-                onClick={setCategory}
-                isSelected={data.id === categoryIndex}
-              />
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* <div>
-    <div className="text-2xl font-bold mb-4">List</div>  
-      <div className="border p-4 rounded-mb">
-        <div>
-          <img src="https://source.unsplash.com/random"
-          alt=""
-          className="w-full h-60 object-cover rounded-xl"
-          />
-          <div className="mt-4">
-            <div className="text-lg font-semibold">Card title</div>
-            <div className="text-gray-500">
-              This is where your description locate.
+        <div className="space-y-2">
+          <div
+            className="bg-emerald-100 shadow-lg rounded-lg px-6 py-6 cursor-pointer"
+            onClick={() => history.push("/comment")}
+          >
+            <div className="flex justify-between">
+              <h2 className="text-lg font-semibold text-gray-900">
+                iamdojin{" "}
+              </h2>
+              <small className="text-sm text-gray-700 ">22h ago</small>
             </div>
-          <div className="mt-4 justify-end flex space-x-3">
-            <div className="bg-gray-800 rounded-md text-white text-center py-2.5 px-4">만들기</div>
-            <div className="bg-gray-800 rounded-md text-white text-center py-2.5 px-4">공유하기</div>
+            <p className="mt-3 text-gray-700 text-sm">
+                  오늘 저녁에 반짓고리 빌려주실 분! 
+          </p>
+          <p className="font-semibold"> #1000 </p>
+            <div className="mt-4 ">
+              <div className="flex text-gray-700 text-sm ">
+                <svg
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 mr-1"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                  />
+                </svg>
+                <span>2</span>
+              </div>
+            </div>
           </div>
-          </div>
-        </div>
-      </div>
-    </div>
-<div>
-
-</div> */}
-      <div className="text-2xl font-bold mb-4">Today's Special</div>
-
-      {!isLoading &&
-        movies.map((movie: any) => <MovieCard key={movie.id} movie={movie} />)}
-
-      <div className="flex space-x-3">
-        <div>
-          <img
-            src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTF8fGZvb2R8ZW58MHx8MHx8&auto=format&fit=crop&w=600&q=60"
-            alt=""
-            className="w-full h-30 object-cover rounded-xl"
-          />
-          <div className="mt-4">
-            <div className="text-lg font-semibold">52번가 샐러드</div>
-            <div className="text-sm text-gray-500">
-              서울 서대문구 이화여대길 52-15
-              <div className="text-sm text-gray-500">
-                02-1234-5678
-                <div className="text-sm text-gray-500">
-                  Mon-SAT 9:00 AM - 9:00 PM
-                </div>
-                <div className="m-4">
-                  <div className="bg-gray-800 rounded-md text-white text-center py-2.5 px-4">
-                    네이버 지도로 길찾기
-                  </div>
-                </div>
+          <div className="bg-emerald-100 shadow-lg rounded-lg px-6 py-6 ">
+            <div className="flex justify-between">
+              <h2 className="text-lg font-semibold text-gray-900">
+                hello{" "}
+              </h2>
+              <small className="text-sm text-gray-700 ">22h ago</small>
+            </div>
+            <p className="mt-3 text-gray-700 text-sm">
+                  내일 하루 검은색 구두 빌려주실 분 있을까요? 사이즈는 240입니다
+          </p>
+          <p className="font-semibold"> #3000 </p>
+            <div className="mt-4 ">
+              <div className="flex text-gray-700 text-sm ">
+                <svg
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  className="w-4 h-4 mr-1"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M17 8h2a2 2 0 012 2v6a2 2 0 01-2 2h-2v4l-4-4H9a1.994 1.994 0 01-1.414-.586m0 0L11 14h4a2 2 0 002-2V6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2v4l.586-.586z"
+                  />
+                </svg>
+                <span>8</span>
               </div>
             </div>
           </div>
