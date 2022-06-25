@@ -3,7 +3,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 import { TextField } from "../components/TextField";
 
-export const socket = io(STRAPI_ENDPOINT);
+// export const socket = io(STRAPI_ENDPOINT);
 
 export const ChatRoom = () => {
   const { push, replace } = useHistory();
@@ -14,7 +14,7 @@ export const ChatRoom = () => {
   // const handleChange = (e: any) => {
   //   setMessage(e.target.value);
   // };
-n
+
   // const handleClick = (e: any) => {
   //   sendMessage(Message);
   // };
